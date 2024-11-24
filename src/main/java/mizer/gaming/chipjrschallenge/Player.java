@@ -1,9 +1,12 @@
 package mizer.gaming.chipjrschallenge;
 
+import java.io.File;
 import java.util.ArrayList;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class Player {
 
@@ -51,19 +54,20 @@ public class Player {
         int nextX = this.x + dx;
         int nextY = this.y + dy;
         
+        if (dx < 0) imageView.setImage(leftImage);
+        else if (dx > 0) imageView.setImage(rightImage);
+        else if (dy < 0) imageView.setImage(upImage);
+        else if (dy > 0) imageView.setImage(downImage);
+        
         // Check collision
         if (tiles[nextY][nextX].getType() == Tile.TileType.BLOCK) {
             // Collision detected, do not move
+            playCollisionSound();
             return;
         }
 
         this.x = nextX;
         this.y = nextY;
-        
-        if (dx < 0) imageView.setImage(leftImage);
-        else if (dx > 0) imageView.setImage(rightImage);
-        else if (dy < 0) imageView.setImage(upImage);
-        else if (dy > 0) imageView.setImage(downImage);
         
         updatePosition();
         updateBoundary();
@@ -101,6 +105,13 @@ public class Player {
     
     public boolean detectCollision(Rectangle2D other) {
         return boundary.intersects(other);
+    }
+    
+        private void playCollisionSound() {
+        String soundFile = "OOF3.WAV";
+        Media sound = new Media(new File(soundFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 
 //    

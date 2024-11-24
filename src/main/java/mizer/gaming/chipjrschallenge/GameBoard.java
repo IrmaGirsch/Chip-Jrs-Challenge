@@ -16,6 +16,8 @@ public class GameBoard {
     public GameBoard() {
         this.tiles = new Tile[GRID_WIDTH][GRID_HEIGHT];
         this.pane = new Pane();
+        pane.setMaxHeight(400);
+        pane.setMaxWidth(400);
 
         initializeTiles();
         initializePlayer();
