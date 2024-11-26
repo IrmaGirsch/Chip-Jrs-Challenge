@@ -1,8 +1,10 @@
-mizer\gaming\chipjrschallenge\Player.class
-mizer\gaming\chipjrschallenge\Tile$TileType.class
 mizer\gaming\chipjrschallenge\App.class
+mizer\gaming\chipjrschallenge\InfoBox$1.class
 mizer\gaming\chipjrschallenge\GameBoard.class
 mizer\gaming\chipjrschallenge\SystemInfo.class
 mizer\gaming\chipjrschallenge\TimeManager.class
 module-info.class
+mizer\gaming\chipjrschallenge\Player.class
+mizer\gaming\chipjrschallenge\Tile$TileType.class
+mizer\gaming\chipjrschallenge\InfoBox.class
 mizer\gaming\chipjrschallenge\Tile.class

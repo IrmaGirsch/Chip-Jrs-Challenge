@@ -23,7 +23,6 @@ public class App extends Application {
 
     private static final int VIEW_WIDTH = 1000;
     private static final int VIEW_HEIGHT = 750;
-    private static final int INFO_BAR_WIDTH = 200;
 
     @Override
     public void start(Stage mainStage) {
@@ -61,22 +60,13 @@ public class App extends Application {
         AnchorPane.setLeftAnchor(level1.getPane(),10.0);
 
         // Create Info Bar
-        VBox infoBar = new VBox(10);
-        infoBar.setPrefWidth(INFO_BAR_WIDTH);
-        infoBar.setStyle("-fx-background-color: #cccccc;");
-        infoBar.setPadding(new Insets(20));
-        infoBar.getChildren().addAll(
-                // Test children for the info bar
-                new javafx.scene.control.Label("Player Info"),
-                new javafx.scene.control.Label("Health: 100"),
-                new javafx.scene.control.Label("Score: 0")
-        );
+        InfoBox infoBox = new InfoBox();
 
         // Anchor Info Bar to the right
-        main.getChildren().add(infoBar);
-        AnchorPane.setTopAnchor(infoBar, 10.0);
-        AnchorPane.setRightAnchor(infoBar, 10.0);
-        AnchorPane.setBottomAnchor(infoBar, 10.0);
+        main.getChildren().add(infoBox.getInfoBox());
+        AnchorPane.setTopAnchor(infoBox.getInfoBox(), 10.0);
+        AnchorPane.setRightAnchor(infoBox.getInfoBox(), 10.0);
+        AnchorPane.setBottomAnchor(infoBox.getInfoBox(), 10.0);
 
         mainStage.setTitle("Chip Jr's Challenge");
         mainStage.setScene(level1Scene);

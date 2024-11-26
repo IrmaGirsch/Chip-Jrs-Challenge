@@ -10,7 +10,8 @@ public class Tile {
     public enum TileType {
         FLOOR, BLOCK, BLOCKSWITCHON, BLOCKSWITCHOFF, SECRET, DIRT, MUD, GRAVEL, INFO, GOAL,
         FIRE, WATER, ICE, ICEWALLBL, ICEWALLBR, ICEWALLTL, ICEWALLTR, SKIDDOWN, SKIDLEFT,
-        SKIDRIGHT, SKIDUP, SKIDDEATH, WALLDOWN, WALLLEFT, WALLRIGHT, WALLUP
+        SKIDRIGHT, SKIDUP, SKIDDEATH, WALLDOWN, WALLLEFT, WALLRIGHT, WALLUP, BLUEKEY, 
+        GREENKEY, REDKEY, YELLOWKEY
     }
     
     private TileType type;
@@ -43,6 +44,14 @@ public class Tile {
                 return new Image("Tile - Fire.png");
             case WATER:
                 return new Image("Tile - Water.png");
+            case BLUEKEY:
+                return new Image("Key - Blue.png");
+            case GREENKEY:
+                return new Image("Key - Green.png");
+            case REDKEY:
+                return new Image("Key - Red.png");
+            case YELLOWKEY:
+                return new Image("Key - Yellow.png");
             case FLOOR:
             default:
                 return new Image("Tile - Floor.png");

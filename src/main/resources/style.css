@@ -1,0 +1,16 @@
+.infoBox {
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-background-color: lightgray;
+    -fx-margin: 20;
+}
+
+.infoBox > .label {
+    -fx-font-size: 36px;
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, black, 5, 0, 2, 2),
+                dropshadow(gaussian, white, 5, 0, -2, -2);
+}

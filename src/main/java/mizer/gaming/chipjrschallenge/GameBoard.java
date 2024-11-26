@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 
 public class GameBoard {
 
-    private static int TILE_SIZE = 68;
+    public static int TILE_SIZE = 68;
     private static int GRID_HEIGHT = 31;
     private static int GRID_WIDTH = 31;
     private Tile[][]tiles;
