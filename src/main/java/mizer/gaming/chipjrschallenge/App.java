@@ -2,13 +2,13 @@ package mizer.gaming.chipjrschallenge;
 
 import java.io.File;
 import javafx.application.Application;
-import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
+import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -18,6 +18,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.canvas.GraphicsContext;
 
 public class App extends Application {
 
@@ -27,8 +28,8 @@ public class App extends Application {
     @Override
     public void start(Stage mainStage) {
         //Create Main Layout
-        AnchorPane main = new AnchorPane();
-        Scene level1Scene = new Scene(main, VIEW_WIDTH, VIEW_HEIGHT);
+        AnchorPane root = new AnchorPane();
+        Scene level1Scene = new Scene(root, VIEW_WIDTH, VIEW_HEIGHT);
 
         //Load Theme Music
         String themeSong = "CHIP02.mp3";
@@ -51,47 +52,53 @@ public class App extends Application {
                         BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true
                 )
         );
-        main.setBackground(new Background(bgImage));
-
-        // Create Gameboard
-        GameBoard level1 = new GameBoard();
-        main.getChildren().add(level1.getPane()); // Add gameboard to AnchorPane
-        AnchorPane.setTopAnchor(level1.getPane(), 10.0);
-        AnchorPane.setLeftAnchor(level1.getPane(),10.0);
+        root.setBackground(new Background(bgImage));
 
         // Create Info Bar
         InfoBox infoBox = new InfoBox();
 
         // Anchor Info Bar to the right
-        main.getChildren().add(infoBox.getInfoBox());
+        root.getChildren().add(infoBox.getInfoBox());
         AnchorPane.setTopAnchor(infoBox.getInfoBox(), 10.0);
         AnchorPane.setRightAnchor(infoBox.getInfoBox(), 10.0);
         AnchorPane.setBottomAnchor(infoBox.getInfoBox(), 10.0);
 
+        // Create Gameboard
+        GameBoard level1 = new GameBoard();
+        Canvas canvas = level1.getCanvas();
+
+        root.getChildren().add(level1.getCanvas());
+
+        AnchorPane.setTopAnchor(canvas, 150.0);
+        AnchorPane.setRightAnchor(canvas, 425.0);
+        
+
+        
         mainStage.setTitle("Chip Jr's Challenge");
         mainStage.setScene(level1Scene);
         mainStage.show();
-
+       
         level1.scrollToPlayer(VIEW_WIDTH, VIEW_HEIGHT);
+
 
         //Player Movement Controls
         level1Scene.setOnKeyPressed(event -> {
             Player player = level1.getPlayer();
+            GameBoard gameBoard = level1;
+            
             if (event.getCode() == KeyCode.LEFT) {
-                player.move(-1, 0);
+                player.move(-1, 0, gameBoard, infoBox);
             }
             if (event.getCode() == KeyCode.RIGHT) {
-                player.move(1, 0);
+                player.move(1, 0, gameBoard, infoBox);
             }
             if (event.getCode() == KeyCode.UP) {
-                player.move(0, -1);
+                player.move(0, -1, gameBoard, infoBox);
             }
             if (event.getCode() == KeyCode.DOWN) {
-                player.move(0, 1);
+                player.move(0, 1, gameBoard, infoBox);
             }
-
             level1.scrollToPlayer(VIEW_WIDTH, VIEW_HEIGHT);
-
         });
 
         //Stop Music When Exiting Window

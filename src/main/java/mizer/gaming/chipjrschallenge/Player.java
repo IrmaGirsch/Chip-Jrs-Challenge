@@ -3,23 +3,22 @@ package mizer.gaming.chipjrschallenge;
 import java.io.File;
 import java.util.ArrayList;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public class Player {
 
     private Tile[][] tiles;
     private int x;
     private int y;
-    private Rectangle2D boundary;
-    
-    private ImageView imageView;
+
     private Image leftImage;
     private Image rightImage;
     private Image upImage;
     private Image downImage;
+    private Image currentImage;
 //    private ArrayList<Item> inventory;
 //    private boolean isDead;
 //    private boolean isSkid;
@@ -31,62 +30,50 @@ public class Player {
         this.tiles = tiles;
         this.x = startX;
         this.y = startY;
-        
+
         this.leftImage = new Image("Chip - Left.png");
         this.rightImage = new Image("Chip - Right.png");
         this.upImage = new Image("Chip - Up.png");
         this.downImage = new Image("Chip - Down.png");
-        
-        Image playerIcon = new Image("Chip - Down.png");
-        this.imageView = new ImageView(playerIcon);
-        this.imageView.setFitWidth(tileSize);
-        this.imageView.setFitHeight(tileSize);
-        updatePosition();
-        updateBoundary();
+
+        this.currentImage = downImage;
+
 //        this.inventory = new ArrayList<>();
 //        this.isDead = false;
 //        this.isSkid = false;
 //        this.isSwim = false;
 //        this.isSlide = false;
     }
-    
-    public void move(int dx, int dy) {
+
+    public void move(int dx, int dy, GameBoard gameBoard, InfoBox infoBox) {
         int nextX = this.x + dx;
         int nextY = this.y + dy;
-        
-        if (dx < 0) imageView.setImage(leftImage);
-        else if (dx > 0) imageView.setImage(rightImage);
-        else if (dy < 0) imageView.setImage(upImage);
-        else if (dy > 0) imageView.setImage(downImage);
-        
-        // Check collision
+
+        // Check for collision with BLOCK tiles
         if (tiles[nextY][nextX].getType() == Tile.TileType.BLOCK) {
-            // Collision detected, do not move
             playCollisionSound();
             return;
         }
 
         this.x = nextX;
         this.y = nextY;
-        
-        updatePosition();
-        updateBoundary();
+
+        if (dx < 0) {
+            currentImage = leftImage;
+        } else if (dx > 0) {
+            currentImage = rightImage;
+        } else if (dy < 0) {
+            currentImage = upImage;
+        } else if (dy > 0) {
+            currentImage = downImage;
+        }
+        gameBoard.handlePlayerMove(this, infoBox);
     }
 
-    public void updatePosition() {
-        imageView.setX(x * imageView.getFitWidth());
-        imageView.setY(y * imageView.getFitHeight());
+    public void draw(GraphicsContext gc, int tileSize) {
+        gc.drawImage(currentImage, x * tileSize, y * tileSize);
     }
-    
-    public void updateBoundary() {
-        boundary = new Rectangle2D(
-            imageView.getX(),
-            imageView.getY(),
-            imageView.getFitWidth(),
-            imageView.getFitHeight()
-        );
-    }
-    
+
     public int getX() {
         return x;
     }
@@ -95,23 +82,24 @@ public class Player {
         return y;
     }
 
-    public ImageView getImageView() {
-        return imageView;
+    public Image getImage() {
+        return currentImage;
     }
-    
-    public Rectangle2D getBoundary() {
-        return boundary;
+
+    public boolean detectCollision(int newX, int newY) {
+        // Return true if the next position collides with a block tile
+        return tiles[newY][newX].getType() == Tile.TileType.BLOCK;
     }
-    
-    public boolean detectCollision(Rectangle2D other) {
-        return boundary.intersects(other);
-    }
-    
-        private void playCollisionSound() {
+
+    private void playCollisionSound() {
         String soundFile = "OOF3.WAV";
         Media sound = new Media(new File(soundFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
+    }
+
+    public Tile getCurrentTile() {
+        return tiles[y][x];
     }
 
 //    
@@ -130,6 +118,4 @@ public class Player {
 //    private void skid(){
 //        
 //    }
-
-
 }

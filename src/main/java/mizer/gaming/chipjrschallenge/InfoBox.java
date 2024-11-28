@@ -60,6 +60,8 @@ public class InfoBox {
             for (int col = 0; col < 4; col++) {
                 Tile.TileType tileType = Tile.TileType.FLOOR;
                 Tile tile = new Tile(tileType, TILE_SIZE);
+                tile.getImageView().setFitWidth(TILE_SIZE * 2);
+                tile.getImageView().setFitHeight(TILE_SIZE * 2);
                 GridPane.setRowIndex(tile.getImageView(), row);
                 GridPane.setColumnIndex(tile.getImageView(), col);
 
@@ -94,7 +96,30 @@ public class InfoBox {
 
     }
 
+    public void showInfoTileMessage(String message) {
+        infoBox.getChildren().clear();
+        infoBox.setStyle("-fx-background-color: black;");
+        Label infoMessage = new Label(message);
+        infoMessage.setStyle("-fx-text-fill: green; -fx-font-size: 16px; -fx-text-alignment: center;");
+        infoMessage.setWrapText(true);
+        infoMessage.setAlignment(Pos.CENTER);
+        infoBox.getChildren().add(infoMessage);
+    }
+    
+public void resetInfoDisplay() {
+    // Reset to original display
+    infoBox.getChildren().clear();
+    infoBox.setStyle(null); // Reset styles
+
+    // Re-add the original labels and inventory grid
+    infoBox.getChildren().addAll(levelLbl, levelNumberLbl, timeLbl, countdownLbl, chipsLbl, chipsLeftLbl, inventoryGrid);
+}
+
     public VBox getInfoBox() {
         return infoBox;
+    }
+
+    public static int getINFO_BOX_WIDTH() {
+        return INFO_BOX_WIDTH;
     }
 }
