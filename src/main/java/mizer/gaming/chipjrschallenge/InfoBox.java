@@ -19,7 +19,7 @@ public class InfoBox {
     private Label timeLbl = new Label("TIME");
     private Label countdownLbl = new Label();
     private Label chipsLbl = new Label("CHIPS\n  LEFT");
-    private Label chipsLeftLbl = new Label("");
+    private Label chipsRemainingLbl;
     private static final int INFO_BOX_WIDTH = 300;
     private static final int INFO_BOX_HEIGHT = 600;
     //Timer stuff
@@ -36,7 +36,7 @@ public class InfoBox {
     private Image yellowKeyImage;
     private ImageView[] inventoryTiles;
 
-    public InfoBox() {
+    public InfoBox(GameBoard level1) {
 
         int TILE_SIZE = GameBoard.TILE_SIZE;
         infoBox = new VBox();
@@ -44,6 +44,7 @@ public class InfoBox {
         infoBox.getStylesheets().add("style.css");
         infoBox.setPrefWidth(INFO_BOX_WIDTH);
         infoBox.setPrefHeight(INFO_BOX_HEIGHT);
+        chipsRemainingLbl = new Label(String.valueOf(level1.getChipsRemaining()));
         timeManager = new TimeManager();
 
         VBox.setVgrow(levelLbl, Priority.NEVER);
@@ -71,7 +72,7 @@ public class InfoBox {
         }
 
         //Add Elements to Info Box
-        infoBox.getChildren().addAll(levelLbl, levelNumberLbl, timeLbl, countdownLbl, chipsLbl, chipsLeftLbl, inventoryGrid);
+        infoBox.getChildren().addAll(levelLbl, levelNumberLbl, timeLbl, countdownLbl, chipsLbl, chipsRemainingLbl, inventoryGrid);
         startCountdown();
     }
 
@@ -112,7 +113,7 @@ public void resetInfoDisplay() {
     infoBox.setStyle(null); // Reset styles
 
     // Re-add the original labels and inventory grid
-    infoBox.getChildren().addAll(levelLbl, levelNumberLbl, timeLbl, countdownLbl, chipsLbl, chipsLeftLbl, inventoryGrid);
+    infoBox.getChildren().addAll(levelLbl, levelNumberLbl, timeLbl, countdownLbl, chipsLbl, chipsRemainingLbl, inventoryGrid);
 }
 
     public VBox getInfoBox() {

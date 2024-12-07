@@ -2,6 +2,7 @@ package mizer.gaming.chipjrschallenge;
 
 import java.io.File;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -54,15 +55,6 @@ public class App extends Application {
         );
         root.setBackground(new Background(bgImage));
 
-        // Create Info Bar
-        InfoBox infoBox = new InfoBox();
-
-        // Anchor Info Bar to the right
-        root.getChildren().add(infoBox.getInfoBox());
-        AnchorPane.setTopAnchor(infoBox.getInfoBox(), 10.0);
-        AnchorPane.setRightAnchor(infoBox.getInfoBox(), 10.0);
-        AnchorPane.setBottomAnchor(infoBox.getInfoBox(), 10.0);
-
         // Create Gameboard
         GameBoard level1 = new GameBoard();
         Canvas canvas = level1.getCanvas();
@@ -71,21 +63,28 @@ public class App extends Application {
 
         AnchorPane.setTopAnchor(canvas, 150.0);
         AnchorPane.setRightAnchor(canvas, 425.0);
-        
 
-        
+        // Create Info Bar
+        InfoBox infoBox = new InfoBox(level1);
+        level1.getChipsRemaining();
+
+        // Anchor Info Bar to the right
+        root.getChildren().add(infoBox.getInfoBox());
+        AnchorPane.setTopAnchor(infoBox.getInfoBox(), 10.0);
+        AnchorPane.setRightAnchor(infoBox.getInfoBox(), 10.0);
+        AnchorPane.setBottomAnchor(infoBox.getInfoBox(), 10.0);
+
         mainStage.setTitle("Chip Jr's Challenge");
         mainStage.setScene(level1Scene);
         mainStage.show();
-       
-        level1.scrollToPlayer(VIEW_WIDTH, VIEW_HEIGHT);
 
+        level1.scrollToPlayer(VIEW_WIDTH, VIEW_HEIGHT);
 
         //Player Movement Controls
         level1Scene.setOnKeyPressed(event -> {
             Player player = level1.getPlayer();
             GameBoard gameBoard = level1;
-            
+
             if (event.getCode() == KeyCode.LEFT) {
                 player.move(-1, 0, gameBoard, infoBox);
             }
@@ -106,6 +105,12 @@ public class App extends Application {
             if (mediaPlayer != null) {
                 mediaPlayer.stop();
             }
+        });
+
+        //Exit Program When Exiting Window
+        mainStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
         });
 
     }

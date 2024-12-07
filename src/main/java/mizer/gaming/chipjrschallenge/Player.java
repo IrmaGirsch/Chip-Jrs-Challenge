@@ -46,6 +46,17 @@ public class Player {
     }
 
     public void move(int dx, int dy, GameBoard gameBoard, InfoBox infoBox) {
+        
+        if (dx < 0) {
+            currentImage = leftImage;
+        } else if (dx > 0) {
+            currentImage = rightImage;
+        } else if (dy < 0) {
+            currentImage = upImage;
+        } else if (dy > 0) {
+            currentImage = downImage;
+        }
+        
         int nextX = this.x + dx;
         int nextY = this.y + dy;
 
@@ -58,15 +69,7 @@ public class Player {
         this.x = nextX;
         this.y = nextY;
 
-        if (dx < 0) {
-            currentImage = leftImage;
-        } else if (dx > 0) {
-            currentImage = rightImage;
-        } else if (dy < 0) {
-            currentImage = upImage;
-        } else if (dy > 0) {
-            currentImage = downImage;
-        }
+        collectChip(gameBoard);
         gameBoard.handlePlayerMove(this, infoBox);
     }
 
@@ -96,6 +99,23 @@ public class Player {
         Media sound = new Media(new File(soundFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
+    }
+
+    private void playChipSound() {
+        String soundFile = "CLICK3.WAV";
+        Media sound = new Media(new File(soundFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+    }
+
+    public void collectChip(GameBoard level1) {
+        Tile currentTile = getCurrentTile();
+
+        if (currentTile.getType() == Tile.TileType.CHIP) {
+            playChipSound();
+            currentTile.setType(Tile.TileType.FLOOR);
+            level1.decrementChipsRemaining();
+        }
     }
 
     public Tile getCurrentTile() {
