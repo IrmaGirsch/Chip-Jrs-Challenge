@@ -68,6 +68,39 @@ public class Tile {
         this.type = type;
     }
 
+    public void setNewType(TileType newType) {
+        this.type = newType;
+        this.image = loadImageForType(newType);  // Update the image when the type changes
+    }
+
+    private Image loadImageForType(TileType type) {
+        switch (type) {
+            case BLOCK:
+                return new Image("Tile - Block.png");
+            case CHIP:
+                return new Image("Chip.png");
+            case INFO:
+                return new Image("Tile - Info.png");
+            case GOAL:
+                return new Image("Tile - Goal.png");
+            case FIRE:
+                return new Image("Tile - Fire.png");
+            case WATER:
+                return new Image("Tile - Water.png");
+            case BLUEKEY:
+                return new Image("Key - Blue.png");
+            case GREENKEY:
+                return new Image("Key - Green.png");
+            case REDKEY:
+                return new Image("Key - Red.png");
+            case YELLOWKEY:
+                return new Image("Key - Yellow.png");
+            case FLOOR:
+            default:
+                return new Image("Tile - Floor.png");
+        }
+    }
+
     public void drawTile(GraphicsContext gc, int x, int y, int tileSize) {
         gc.drawImage(image, x * tileSize, y * tileSize, tileSize, tileSize);
     }
@@ -79,7 +112,5 @@ public class Tile {
     public ImageView getImageView() {
         return imageView;
     }
-    
-    
 
 }

@@ -177,7 +177,7 @@ public class GameBoard {
             infoBox.showInfoTileMessage("Your mother, Miranda, has been missing for months.  Your father, Chip, left a week ago to try and go find her.  A mysterious message appears on your smart watch to go to the location of your mom's old Fun House.  You go and find a secret back door that drops you into a room called Level 148.  Collect enough chips to proceed through the NAND gate.");
         } else if (currentTile.getType() == Tile.TileType.CHIP) {
             player.playChipSound();
-            currentTile.setType(Tile.TileType.FLOOR);
+            currentTile.setNewType(Tile.TileType.FLOOR);
             decrementChipsRemaining(infoBox, this);
         }
         
