@@ -51,7 +51,7 @@ public class Player {
 //        this.isSlide = false;
     }
 
-    public void move(int dx, int dy, GameBoard gameBoard, InfoBox infoBox) {
+    public void move(int dx, int dy, GameBoard gameBoard, InfoBox infoBox, Player player) {
 
         if (dx < 0) {
             currentImage = leftImage;
@@ -66,8 +66,20 @@ public class Player {
         int nextX = this.x + dx;
         int nextY = this.y + dy;
 
-        // Check For Collision With Block Tile
+        // Check For Collision With Block and Door Tiles
         if (tiles[nextY][nextX].getType() == Tile.TileType.BLOCK) {
+            playCollisionSound();
+            return;
+        } else if (tiles[nextY][nextX].getType() == Tile.TileType.BLUEDOOR && !player.hasKey(0)) {
+            playCollisionSound();
+            return;
+        } else if (tiles[nextY][nextX].getType() == Tile.TileType.GREENDOOR && !player.hasKey(1)) {
+            playCollisionSound();
+            return;
+        } else if (tiles[nextY][nextX].getType() == Tile.TileType.REDDOOR && !player.hasKey(2)) {
+            playCollisionSound();
+            return;
+        } else if (tiles[nextY][nextX].getType() == Tile.TileType.YELLOWDOOR && !player.hasKey(3)) {
             playCollisionSound();
             return;
         }
@@ -111,25 +123,48 @@ public class Player {
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }
+    
+    public void playBlipSound() {
+        String soundFile = "BLIP2.WAV";
+        Media sound = new Media(new File(soundFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+    }
+    
+    public void playDoorSound() {
+        String soundFile = "DOOR.WAV";
+        Media sound = new Media(new File(soundFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+    }
 
     public Tile getCurrentTile() {
         return tiles[y][x];
     }
 
-    public void collectKey(int keyIndex) {
+    public void collectKey(int keyIndex, InfoBox infoBox, Player player) {
         if (keyIndex >= 0 && keyIndex < keys.length) {
             keys[keyIndex] = true;
+            infoBox.updateInventory(player);
         }
     }
 
-    public void collectBoot(int bootIndex) {
+    public void collectBoot(int bootIndex, InfoBox infoBox, Player player) {
         if (bootIndex >= 0 && bootIndex < boots.length) {
             boots[bootIndex] = true;
+            infoBox.updateInventory(player);
         }
     }
 
     public boolean hasKey(int keyIndex) {
         return keyIndex >= 0 && keyIndex < keys.length && keys[keyIndex];
+    }
+
+    public void useKey(int keyIndex, InfoBox infoBox, Player player) {
+        if (hasKey(keyIndex)) {
+            keys[keyIndex] = false;
+            infoBox.updateInventory(player);
+        }
     }
 
     public boolean hasBoot(int bootIndex) {

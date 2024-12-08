@@ -92,7 +92,7 @@ public class GameBoard {
                 if (col == 15 && row == 14) {
                     tileType = Tile.TileType.INFO;
                 }
-                
+
                 if (col == 16 && row == 13) {
                     tileType = Tile.TileType.FIREBOOT;
                 }
@@ -116,6 +116,18 @@ public class GameBoard {
                 }
                 if (col == 17 && row == 16) {
                     tileType = Tile.TileType.YELLOWKEY;
+                }
+                if (col == 14 && row == 13) {
+                    tileType = Tile.TileType.BLUEDOOR;
+                }
+                if (col == 14 && row == 14) {
+                    tileType = Tile.TileType.GREENDOOR;
+                }
+                if (col == 14 && row == 15) {
+                    tileType = Tile.TileType.REDDOOR;
+                }
+                if (col == 14 && row == 16) {
+                    tileType = Tile.TileType.YELLOWDOOR;
                 }
                 if (col == 5 && row == 5) {
                     tileType = Tile.TileType.GOAL;
@@ -197,9 +209,7 @@ public class GameBoard {
 
     public void handlePlayerMove(Player player, InfoBox infoBox) {
         Tile currentTile = player.getCurrentTile();
-        
-        infoBox.updateInventory(player);
-        
+
         if (currentTile.getType() == Tile.TileType.INFO) {
             infoBox.showInfoTileMessage("Your mother, Miranda, has been missing for months.  Your father, Chip, left a week ago to try and go find her.  A mysterious message appears on your smart watch to go to the location of your mom's old Fun House.  You go and find a secret back door that drops you into a room called Level 148.  Collect enough chips to proceed through the NAND gate.");
         } else if (currentTile.getType() == Tile.TileType.CHIP) {
@@ -207,31 +217,56 @@ public class GameBoard {
             currentTile.setNewType(Tile.TileType.FLOOR);
             decrementChipsRemaining(infoBox, this);
         } else if (currentTile.getType() == Tile.TileType.BLUEKEY) {
-            player.collectKey(0);
-            currentTile.setType(Tile.TileType.FLOOR);
+            player.playBlipSound();
+            player.collectKey(0, infoBox, player);
+            currentTile.setNewType(Tile.TileType.FLOOR);
         } else if (currentTile.getType() == Tile.TileType.GREENKEY) {
-            player.collectKey(1);
-            currentTile.setType(Tile.TileType.FLOOR);
+            player.playBlipSound();
+            player.collectKey(1, infoBox, player);
+            currentTile.setNewType(Tile.TileType.FLOOR);
         } else if (currentTile.getType() == Tile.TileType.REDKEY) {
-            player.collectKey(2);
-            currentTile.setType(Tile.TileType.FLOOR);
+            player.playBlipSound();
+            player.collectKey(2, infoBox, player);
+            currentTile.setNewType(Tile.TileType.FLOOR);
         } else if (currentTile.getType() == Tile.TileType.YELLOWKEY) {
-            player.collectKey(3);
-            currentTile.setType(Tile.TileType.FLOOR);
+            player.playBlipSound();
+            player.collectKey(3, infoBox, player);
+            currentTile.setNewType(Tile.TileType.FLOOR);
         } else if (currentTile.getType() == Tile.TileType.FIREBOOT) {
-            player.collectBoot(0);
-            currentTile.setType(Tile.TileType.FLOOR);
+            player.playBlipSound();
+            player.collectBoot(0, infoBox, player);
+            currentTile.setNewType(Tile.TileType.FLOOR);
         } else if (currentTile.getType() == Tile.TileType.ICEBOOT) {
-            player.collectBoot(1);
-            currentTile.setType(Tile.TileType.FLOOR);
+            player.playBlipSound();
+            player.collectBoot(1, infoBox, player);
+            currentTile.setNewType(Tile.TileType.FLOOR);
         } else if (currentTile.getType() == Tile.TileType.SKIDBOOT) {
-            player.collectBoot(2);
-            currentTile.setType(Tile.TileType.FLOOR);
+            player.playBlipSound();
+            player.collectBoot(2, infoBox, player);
+            currentTile.setNewType(Tile.TileType.FLOOR);
         } else if (currentTile.getType() == Tile.TileType.WATERBOOT) {
-            player.collectBoot(3);
-            currentTile.setType(Tile.TileType.FLOOR);
+            player.playBlipSound();
+            player.collectBoot(3, infoBox, player);
+            currentTile.setNewType(Tile.TileType.FLOOR);
+        } else if (currentTile.getType() == Tile.TileType.BLUEDOOR && player.hasKey(0)) {
+            player.playDoorSound();
+            currentTile.setNewType(Tile.TileType.FLOOR);
+            player.useKey(0, infoBox, player);
+        } else if (currentTile.getType() == Tile.TileType.GREENDOOR && player.hasKey(1)) {
+            player.playDoorSound();
+            currentTile.setNewType(Tile.TileType.FLOOR);
+            player.useKey(1, infoBox, player);
+        } else if (currentTile.getType() == Tile.TileType.REDDOOR && player.hasKey(2)) {
+            player.playDoorSound();
+            currentTile.setNewType(Tile.TileType.FLOOR);
+            player.useKey(2, infoBox, player);
+        } else if (currentTile.getType() == Tile.TileType.YELLOWDOOR && player.hasKey(3)) {
+            player.playDoorSound();
+            currentTile.setNewType(Tile.TileType.FLOOR);
+            player.useKey(3, infoBox, player);
         } else {
             infoBox.resetInfoDisplay();
+
         }
     }
 

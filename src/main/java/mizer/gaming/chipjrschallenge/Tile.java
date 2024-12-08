@@ -139,38 +139,38 @@ public class Tile {
         }
     }
 
-    public void collectKey(Player player) {
+    public void collectKey(InfoBox infoBox, Player player) {
         switch (this.type) {
             case REDKEY:
-                player.collectKey(0);
+                player.collectKey(0, infoBox, player);
                 break;
             case BLUEKEY:
-                player.collectKey(1);
+                player.collectKey(1, infoBox, player);
                 break;
             case GREENKEY:
-                player.collectKey(2);
+                player.collectKey(2, infoBox, player);
                 break;
             case YELLOWKEY:
-                player.collectKey(3);
+                player.collectKey(3, infoBox, player);
                 break;
             default:
                 break;
         }
     }
 
-    public void collectBoot(Player player) {
+    public void collectBoot(InfoBox infoBox, Player player) {
         switch (this.type) {
             case FIREBOOT:
-                player.collectBoot(0);
+                player.collectBoot(0, infoBox, player);
                 break;
             case ICEBOOT:
-                player.collectBoot(1);
+                player.collectBoot(1, infoBox, player);
                 break;
             case SKIDBOOT:
-                player.collectBoot(2);
+                player.collectBoot(2, infoBox, player);
                 break;
             case WATERBOOT:
-                player.collectBoot(3);
+                player.collectBoot(3, infoBox, player);
                 break;
             default:
                 break;
