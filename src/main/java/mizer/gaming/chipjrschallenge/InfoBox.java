@@ -15,7 +15,7 @@ public class InfoBox {
 
     private VBox infoBox;
     private Label levelLbl = new Label("LEVEL");
-    private Label levelNumberLbl = new Label("");
+    private Label levelNumberLbl = new Label("001");
     private Label timeLbl = new Label("TIME");
     private Label countdownLbl = new Label();
     private Label chipsLbl = new Label("CHIPS\n  LEFT");
@@ -108,12 +108,15 @@ public class InfoBox {
     }
     
 public void resetInfoDisplay() {
-    // Reset to original display
+    
     infoBox.getChildren().clear();
-    infoBox.setStyle(null); // Reset styles
+    infoBox.setStyle(null);
 
-    // Re-add the original labels and inventory grid
     infoBox.getChildren().addAll(levelLbl, levelNumberLbl, timeLbl, countdownLbl, chipsLbl, chipsRemainingLbl, inventoryGrid);
+}
+
+public void updateChipsRemaining(int chipsRemaining, GameBoard level1) {
+    chipsRemainingLbl.setText(String.valueOf(level1.getChipsRemaining()));
 }
 
     public VBox getInfoBox() {

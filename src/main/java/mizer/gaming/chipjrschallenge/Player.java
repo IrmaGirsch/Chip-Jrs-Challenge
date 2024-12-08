@@ -69,7 +69,7 @@ public class Player {
         this.x = nextX;
         this.y = nextY;
 
-        collectChip(gameBoard);
+        collectChip(gameBoard, infoBox);
         gameBoard.handlePlayerMove(this, infoBox);
     }
 
@@ -108,13 +108,13 @@ public class Player {
         mediaPlayer.play();
     }
 
-    public void collectChip(GameBoard level1) {
+    public void collectChip(GameBoard level1, InfoBox infoBox) {
         Tile currentTile = getCurrentTile();
 
         if (currentTile.getType() == Tile.TileType.CHIP) {
             playChipSound();
             currentTile.setType(Tile.TileType.FLOOR);
-            level1.decrementChipsRemaining();
+            level1.decrementChipsRemaining(infoBox, level1);
         }
     }
 

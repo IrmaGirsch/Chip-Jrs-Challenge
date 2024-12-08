@@ -1,5 +1,8 @@
 package mizer.gaming.chipjrschallenge;
 
+import java.awt.Point;
+import java.util.Arrays;
+import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -30,9 +33,19 @@ public class GameBoard {
     }
 
     private void initializeTiles() {
-        
+
+        chipsRemaining = 0;
+
+        //Set Points For Chip Locations
+        List<Point> chipPositions = Arrays.asList(
+                new Point(5, 15), new Point(5, 25),
+                new Point(15, 5), new Point(15, 25),
+                new Point(25, 5), new Point(25, 15), new Point(25, 25)
+        );
+
         for (int row = 0; row < GRID_HEIGHT; row++) {
             for (int col = 0; col < GRID_WIDTH; col++) {
+
                 Tile.TileType tileType = (col % 10 == 0 || row % 10 == 0) ? Tile.TileType.BLOCK : Tile.TileType.FLOOR;
                 if (col == 10 && row == 5) {
                     tileType = Tile.TileType.FLOOR;
@@ -70,29 +83,14 @@ public class GameBoard {
                 if (col == 15 && row == 20) {
                     tileType = Tile.TileType.FLOOR;
                 }
+
+                if (chipPositions.contains(new Point(col, row))) {
+                    tileType = Tile.TileType.CHIP;
+                    chipsRemaining++;
+                }
+
                 if (col == 15 && row == 14) {
                     tileType = Tile.TileType.INFO;
-                }
-                if (col == 5 && row == 15) {
-                    tileType = Tile.TileType.CHIP;
-                }
-                if (col == 5 && row == 25) {
-                    tileType = Tile.TileType.CHIP;
-                }
-                if (col == 15 && row == 5) {
-                    tileType = Tile.TileType.CHIP;
-                }
-                if (col == 15 && row == 25) {
-                    tileType = Tile.TileType.CHIP;
-                }
-                if (col == 25 && row == 5) {
-                    tileType = Tile.TileType.CHIP;
-                }
-                if (col == 25 && row == 15) {
-                    tileType = Tile.TileType.CHIP;
-                }
-                if (col == 25 && row == 25) {
-                    tileType = Tile.TileType.CHIP;
                 }
                 if (col == 5 && row == 5) {
                     tileType = Tile.TileType.GOAL;
@@ -118,9 +116,10 @@ public class GameBoard {
         return count;
     }
 
-    public void decrementChipsRemaining() {
+    public void decrementChipsRemaining(InfoBox infoBox, GameBoard level1) {
         if (chipsRemaining > 0) {
             chipsRemaining--;
+            infoBox.updateChipsRemaining(chipsRemaining, level1);
         }
     }
 
@@ -183,10 +182,6 @@ public class GameBoard {
 
     public int getChipsRemaining() {
         return countChipsOnBoard();
-    }
-
-    public void setChipsRemining() {
-        this.chipsRemaining = chipsRemaining;
     }
 
     public Tile[][] getTiles() {
