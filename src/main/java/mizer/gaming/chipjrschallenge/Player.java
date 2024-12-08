@@ -69,7 +69,6 @@ public class Player {
         this.x = nextX;
         this.y = nextY;
 
-        collectChip(gameBoard, infoBox);
         gameBoard.handlePlayerMove(this, infoBox);
     }
 
@@ -94,28 +93,18 @@ public class Player {
         return tiles[newY][newX].getType() == Tile.TileType.BLOCK;
     }
 
-    private void playCollisionSound() {
+    public void playCollisionSound() {
         String soundFile = "OOF3.WAV";
         Media sound = new Media(new File(soundFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }
 
-    private void playChipSound() {
+    public void playChipSound() {
         String soundFile = "CLICK3.WAV";
         Media sound = new Media(new File(soundFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
-    }
-
-    public void collectChip(GameBoard level1, InfoBox infoBox) {
-        Tile currentTile = getCurrentTile();
-
-        if (currentTile.getType() == Tile.TileType.CHIP) {
-            playChipSound();
-            currentTile.setType(Tile.TileType.FLOOR);
-            level1.decrementChipsRemaining(infoBox, level1);
-        }
     }
 
     public Tile getCurrentTile() {
