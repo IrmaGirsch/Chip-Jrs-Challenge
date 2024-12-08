@@ -29,6 +29,8 @@ public class InfoBox {
     private boolean timerRunning = true;
     //Inventory Stuff
     private GridPane inventoryGrid;
+    private static final int INVENTORY_SIZE = 8;
+    private Image[] inventoryImages = new Image[INVENTORY_SIZE];
     private Image floorTileImage;
     private Image blueKeyImage;
     private Image greenKeyImage;
@@ -106,18 +108,71 @@ public class InfoBox {
         infoMessage.setAlignment(Pos.CENTER);
         infoBox.getChildren().add(infoMessage);
     }
-    
-public void resetInfoDisplay() {
-    
-    infoBox.getChildren().clear();
-    infoBox.setStyle(null);
 
-    infoBox.getChildren().addAll(levelLbl, levelNumberLbl, timeLbl, countdownLbl, chipsLbl, chipsRemainingLbl, inventoryGrid);
-}
+    public void resetInfoDisplay() {
 
-public void updateChipsRemaining(int chipsRemaining, GameBoard level1) {
-    chipsRemainingLbl.setText(String.valueOf(level1.getChipsRemaining()));
-}
+        infoBox.getChildren().clear();
+        infoBox.setStyle(null);
+
+        infoBox.getChildren().addAll(levelLbl, levelNumberLbl, timeLbl, countdownLbl, chipsLbl, chipsRemainingLbl, inventoryGrid);
+    }
+
+    public void updateChipsRemaining(int chipsRemaining, GameBoard level1) {
+        chipsRemainingLbl.setText(String.valueOf(level1.getChipsRemaining()));
+    }
+
+    public void updateInventory(Player player) {
+        for (int i = 0; i < inventoryTiles.length; i++) {
+            Tile.TileType tileType = Tile.TileType.FLOOR;
+
+            switch (i) {
+                case 0:
+                    if (player.hasKey(0)) {
+                        tileType = Tile.TileType.BLUEKEY;
+                    }
+                    break;
+                case 1:
+                    if (player.hasKey(1)) {
+                        tileType = Tile.TileType.GREENKEY;
+                    }
+                    break;
+                case 2:
+                    if (player.hasKey(2)) {
+                        tileType = Tile.TileType.REDKEY;
+                    }
+                    break;
+                case 3:
+                    if (player.hasKey(3)) {
+                        tileType = Tile.TileType.YELLOWKEY;
+                    }
+                    break;
+                case 4:
+                    if (player.hasBoot(0)) {
+                        tileType = Tile.TileType.FIREBOOT;
+                    }
+                    break;
+                case 5:
+                    if (player.hasBoot(1)) {
+                        tileType = Tile.TileType.ICEBOOT;
+                    }
+                    break;
+                case 6:
+                    if (player.hasBoot(2)) {
+                        tileType = Tile.TileType.SKIDBOOT;
+                    }
+                    break;
+                case 7:
+                    if (player.hasBoot(3)) {
+                        tileType = Tile.TileType.WATERBOOT;
+                    }
+                    break;
+                default:
+                    tileType = Tile.TileType.FLOOR;
+            }
+
+            inventoryTiles[i].setImage(Tile.loadImageForType(tileType));
+        }
+    }
 
     public VBox getInfoBox() {
         return infoBox;

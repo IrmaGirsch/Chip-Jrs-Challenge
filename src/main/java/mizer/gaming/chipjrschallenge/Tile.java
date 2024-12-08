@@ -9,9 +9,9 @@ public class Tile {
 
     public enum TileType {
         FLOOR, BLOCK, CHIP, BLOCKSWITCHON, BLOCKSWITCHOFF, SECRET, DIRT, MUD, GRAVEL, INFO, GOAL,
-        FIRE, WATER, ICE, ICEWALLBL, ICEWALLBR, ICEWALLTL, ICEWALLTR, SKIDDOWN, SKIDLEFT,
+        FIRE, ICE, SKID, WATER, FIREBOOT, ICEBOOT, SKIDBOOT, WATERBOOT, ICEWALLBL, ICEWALLBR, ICEWALLTL, ICEWALLTR, SKIDDOWN, SKIDLEFT,
         SKIDRIGHT, SKIDUP, SKIDDEATH, WALLDOWN, WALLLEFT, WALLRIGHT, WALLUP, BLUEKEY,
-        GREENKEY, REDKEY, YELLOWKEY
+        GREENKEY, REDKEY, YELLOWKEY, BLUEDOOR, GREENDOOR, REDDOOR, YELLOWDOOR
     }
 
     private TileType type;
@@ -40,8 +40,20 @@ public class Tile {
                 return new Image("Tile - Goal.png");
             case FIRE:
                 return new Image("Tile - Fire.png");
+            case ICE:
+                return new Image("Tile - Ice.png");
+            case SKID:
+                return new Image("Tile - Skid.png");
             case WATER:
                 return new Image("Tile - Water.png");
+            case FIREBOOT:
+                return new Image("Boot - Fire.png");
+            case ICEBOOT:
+                return new Image("Boot - Ice.png");
+            case SKIDBOOT:
+                return new Image("Boot - Skid.png");
+            case WATERBOOT:
+                return new Image("Boot - Water.png");
             case BLUEKEY:
                 return new Image("Key - Blue.png");
             case GREENKEY:
@@ -50,6 +62,14 @@ public class Tile {
                 return new Image("Key - Red.png");
             case YELLOWKEY:
                 return new Image("Key - Yellow.png");
+            case BLUEDOOR:
+                return new Image("Door - Blue.png");
+            case GREENDOOR:
+                return new Image("Door - Green.png");
+            case REDDOOR:
+                return new Image("Door - Red.png");
+            case YELLOWDOOR:
+                return new Image("Door - Yellow.png");
             case FLOOR:
             default:
                 return new Image("Tile - Floor.png");
@@ -70,23 +90,33 @@ public class Tile {
 
     public void setNewType(TileType newType) {
         this.type = newType;
-        this.image = loadImageForType(newType);  // Update the image when the type changes
+        this.image = loadImageForType(newType);
     }
 
-    private Image loadImageForType(TileType type) {
+    static Image loadImageForType(TileType type) {
         switch (type) {
             case BLOCK:
                 return new Image("Tile - Block.png");
-            case CHIP:
-                return new Image("Chip.png");
             case INFO:
                 return new Image("Tile - Info.png");
             case GOAL:
                 return new Image("Tile - Goal.png");
             case FIRE:
                 return new Image("Tile - Fire.png");
+            case ICE:
+                return new Image("Tile - Ice.png");
+            case SKID:
+                return new Image("Tile - Skid.png");
             case WATER:
                 return new Image("Tile - Water.png");
+            case FIREBOOT:
+                return new Image("Boot - Fire.png");
+            case ICEBOOT:
+                return new Image("Boot - Ice.png");
+            case SKIDBOOT:
+                return new Image("Boot - Skid.png");
+            case WATERBOOT:
+                return new Image("Boot - Water.png");
             case BLUEKEY:
                 return new Image("Key - Blue.png");
             case GREENKEY:
@@ -95,9 +125,55 @@ public class Tile {
                 return new Image("Key - Red.png");
             case YELLOWKEY:
                 return new Image("Key - Yellow.png");
+            case BLUEDOOR:
+                return new Image("Door - Blue.png");
+            case GREENDOOR:
+                return new Image("Door - Green.png");
+            case REDDOOR:
+                return new Image("Door - Red.png");
+            case YELLOWDOOR:
+                return new Image("Door - Yellow.png");
             case FLOOR:
             default:
                 return new Image("Tile - Floor.png");
+        }
+    }
+
+    public void collectKey(Player player) {
+        switch (this.type) {
+            case REDKEY:
+                player.collectKey(0);
+                break;
+            case BLUEKEY:
+                player.collectKey(1);
+                break;
+            case GREENKEY:
+                player.collectKey(2);
+                break;
+            case YELLOWKEY:
+                player.collectKey(3);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void collectBoot(Player player) {
+        switch (this.type) {
+            case FIREBOOT:
+                player.collectBoot(0);
+                break;
+            case ICEBOOT:
+                player.collectBoot(1);
+                break;
+            case SKIDBOOT:
+                player.collectBoot(2);
+                break;
+            case WATERBOOT:
+                player.collectBoot(3);
+                break;
+            default:
+                break;
         }
     }
 

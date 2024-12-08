@@ -11,15 +11,18 @@ import javafx.scene.image.Image;
 public class Player {
 
     private Tile[][] tiles;
+    //Location
     private int x;
     private int y;
-
+    //Images
     private Image leftImage;
     private Image rightImage;
     private Image upImage;
     private Image downImage;
     private Image currentImage;
-//    private ArrayList<Item> inventory;
+    //Inventory
+    private boolean[] keys;
+    private boolean[] boots;
 //    private boolean isDead;
 //    private boolean isSkid;
 //    private boolean isSwim;
@@ -38,7 +41,10 @@ public class Player {
 
         this.currentImage = downImage;
 
-//        this.inventory = new ArrayList<>();
+        //Set Up Inventory
+        this.keys = new boolean[4];
+        this.boots = new boolean[4];
+
 //        this.isDead = false;
 //        this.isSkid = false;
 //        this.isSwim = false;
@@ -46,7 +52,7 @@ public class Player {
     }
 
     public void move(int dx, int dy, GameBoard gameBoard, InfoBox infoBox) {
-        
+
         if (dx < 0) {
             currentImage = leftImage;
         } else if (dx > 0) {
@@ -56,11 +62,11 @@ public class Player {
         } else if (dy > 0) {
             currentImage = downImage;
         }
-        
+
         int nextX = this.x + dx;
         int nextY = this.y + dy;
 
-        // Check for collision with BLOCK tiles
+        // Check For Collision With Block Tile
         if (tiles[nextY][nextX].getType() == Tile.TileType.BLOCK) {
             playCollisionSound();
             return;
@@ -89,7 +95,6 @@ public class Player {
     }
 
     public boolean detectCollision(int newX, int newY) {
-        // Return true if the next position collides with a block tile
         return tiles[newY][newX].getType() == Tile.TileType.BLOCK;
     }
 
@@ -111,10 +116,25 @@ public class Player {
         return tiles[y][x];
     }
 
-//    
-//    private void collectItem(Item item){
-//        inventory.add(item);
-//    }
+    public void collectKey(int keyIndex) {
+        if (keyIndex >= 0 && keyIndex < keys.length) {
+            keys[keyIndex] = true;
+        }
+    }
+
+    public void collectBoot(int bootIndex) {
+        if (bootIndex >= 0 && bootIndex < boots.length) {
+            boots[bootIndex] = true;
+        }
+    }
+
+    public boolean hasKey(int keyIndex) {
+        return keyIndex >= 0 && keyIndex < keys.length && keys[keyIndex];
+    }
+
+    public boolean hasBoot(int bootIndex) {
+        return bootIndex >= 0 && bootIndex < boots.length && boots[bootIndex];
+    }
 //    
 //    private void die(){
 //        isDead = true;
