@@ -9,7 +9,7 @@ public class Tile {
 
     public enum TileType {
         FLOOR, BLOCK, CHIP, BLOCKSWITCHON, BLOCKSWITCHOFF, SECRET, DIRT, MUD, GRAVEL, INFO, GOAL,
-        FIRE, ICE, SKID, WATER, FIREBOOT, ICEBOOT, SKIDBOOT, WATERBOOT, ICEWALLBL, ICEWALLBR, ICEWALLTL, ICEWALLTR, SKIDDOWN, SKIDLEFT,
+        FIRE, ICE, SKID, WATER, FIREDEATH, WATERDEATH, FIREBOOT, ICEBOOT, SKIDBOOT, WATERBOOT, ICEWALLBL, ICEWALLBR, ICEWALLTL, ICEWALLTR, SKIDDOWN, SKIDLEFT,
         SKIDRIGHT, SKIDUP, SKIDDEATH, WALLDOWN, WALLLEFT, WALLRIGHT, WALLUP, BLUEKEY,
         GREENKEY, REDKEY, YELLOWKEY, BLUEDOOR, GREENDOOR, REDDOOR, YELLOWDOOR
     }
@@ -43,9 +43,13 @@ public class Tile {
             case ICE:
                 return new Image("Tile - Ice.png");
             case SKID:
-                return new Image("Tile - Skid.png");
+                return new Image("Tile - Skid Up.png");
             case WATER:
                 return new Image("Tile - Water.png");
+            case FIREDEATH:
+                return new Image("Chip - Fire Death.png");
+            case WATERDEATH:
+                return new Image("Chip - Water Death.png");
             case FIREBOOT:
                 return new Image("Boot - Fire.png");
             case ICEBOOT:
@@ -109,6 +113,10 @@ public class Tile {
                 return new Image("Tile - Skid.png");
             case WATER:
                 return new Image("Tile - Water.png");
+            case FIREDEATH:
+                return new Image("Chip - Fire Death.png");
+            case WATERDEATH:
+                return new Image("Chip - Water Death.png");
             case FIREBOOT:
                 return new Image("Boot - Fire.png");
             case ICEBOOT:

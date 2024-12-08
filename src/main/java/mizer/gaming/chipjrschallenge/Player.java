@@ -2,6 +2,7 @@ package mizer.gaming.chipjrschallenge;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -11,6 +12,7 @@ import javafx.scene.image.Image;
 public class Player {
 
     private Tile[][] tiles;
+    private boolean isAlive = true;
     //Location
     private int x;
     private int y;
@@ -23,7 +25,7 @@ public class Player {
     //Inventory
     private boolean[] keys;
     private boolean[] boots;
-//    private boolean isDead;
+
 //    private boolean isSkid;
 //    private boolean isSwim;
 //    private boolean isSlide;
@@ -45,13 +47,15 @@ public class Player {
         this.keys = new boolean[4];
         this.boots = new boolean[4];
 
-//        this.isDead = false;
 //        this.isSkid = false;
 //        this.isSwim = false;
 //        this.isSlide = false;
     }
 
     public void move(int dx, int dy, GameBoard gameBoard, InfoBox infoBox, Player player) {
+        if (!isAlive) {
+            return;
+        }
 
         if (dx < 0) {
             currentImage = leftImage;
@@ -123,16 +127,23 @@ public class Player {
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }
-    
+
     public void playBlipSound() {
         String soundFile = "BLIP2.WAV";
         Media sound = new Media(new File(soundFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }
-    
+
     public void playDoorSound() {
         String soundFile = "DOOR.WAV";
+        Media sound = new Media(new File(soundFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+    }
+
+    public void playDeathSound() {
+        String soundFile = "BUMMER.WAV";
         Media sound = new Media(new File(soundFile).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
@@ -170,11 +181,43 @@ public class Player {
     public boolean hasBoot(int bootIndex) {
         return bootIndex >= 0 && bootIndex < boots.length && boots[bootIndex];
     }
-//    
-//    private void die(){
-//        isDead = true;
-//    }
-//    
+
+    public void hasFireDied() {
+        playDeathSound();
+        getCurrentTile().setNewType(Tile.TileType.FIREDEATH);
+        removePlayerFromBoard();
+        resetInventory();
+    }
+
+    public void hasWaterDied() {
+
+        playDeathSound();
+        getCurrentTile().setNewType(Tile.TileType.WATERDEATH);
+        removePlayerFromBoard();
+        resetInventory();
+    }
+
+    public void removePlayerFromBoard() {
+        setCurrentImage(null);
+        setAlive(false);
+    }
+
+    public void resetInventory() {
+        Arrays.fill(keys, false);
+        Arrays.fill(boots, false);
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.isAlive = alive;
+    }
+
+    public void setCurrentImage(Image newImage) {
+        this.currentImage = newImage;
+    }
 //    private void swim(){
 //        
 //    }

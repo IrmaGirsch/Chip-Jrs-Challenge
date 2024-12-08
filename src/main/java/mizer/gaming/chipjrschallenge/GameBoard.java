@@ -129,6 +129,18 @@ public class GameBoard {
                 if (col == 14 && row == 16) {
                     tileType = Tile.TileType.YELLOWDOOR;
                 }
+                if (col == 18 && row == 13) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 18 && row == 14) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 18 && row == 15) {
+                    tileType = Tile.TileType.SKID;
+                }
+                if (col == 18 && row == 16) {
+                    tileType = Tile.TileType.WATER;
+                }
                 if (col == 5 && row == 5) {
                     tileType = Tile.TileType.GOAL;
                 }
@@ -264,6 +276,18 @@ public class GameBoard {
             player.playDoorSound();
             currentTile.setNewType(Tile.TileType.FLOOR);
             player.useKey(3, infoBox, player);
+        } else if (currentTile.getType() == Tile.TileType.FIRE && !player.hasBoot(0)) {
+            player.hasFireDied();
+            return;
+//        } else if (tiles[nextY][nextX].getType() == Tile.TileType.ICE && !player.hasBoot(1)) {
+//            playDeathSound();
+//            return;
+//        } else if (tiles[nextY][nextX].getType() == Tile.TileType.SKID && !player.hasBoot(3)) {
+//            playDeathSound();
+//            return;
+        } else if (currentTile.getType() == Tile.TileType.WATER && !player.hasBoot(3)) {
+            player.hasWaterDied();
+            return;
         } else {
             infoBox.resetInfoDisplay();
 
