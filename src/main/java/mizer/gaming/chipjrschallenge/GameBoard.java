@@ -49,19 +49,19 @@ public class GameBoard {
 
                 Tile.TileType tileType = (col % 10 == 0 || row % 10 == 0) ? Tile.TileType.BLOCK : Tile.TileType.FLOOR;
                 if (col == 10 && row == 5) {
-                    tileType = Tile.TileType.FLOOR;
+                    tileType = Tile.TileType.GREENDOOR;
                 }
                 if (col == 20 && row == 5) {
-                    tileType = Tile.TileType.FLOOR;
+                    tileType = Tile.TileType.YELLOWDOOR;
                 }
                 if (col == 10 && row == 15) {
-                    tileType = Tile.TileType.FLOOR;
+                    tileType = Tile.TileType.REDDOOR;
                 }
                 if (col == 20 && row == 15) {
                     tileType = Tile.TileType.FLOOR;
                 }
                 if (col == 10 && row == 25) {
-                    tileType = Tile.TileType.FLOOR;
+                    tileType = Tile.TileType.BLUEDOOR;
                 }
                 if (col == 20 && row == 25) {
                     tileType = Tile.TileType.FLOOR;
@@ -73,10 +73,10 @@ public class GameBoard {
                     tileType = Tile.TileType.FLOOR;
                 }
                 if (col == 5 && row == 10) {
-                    tileType = Tile.TileType.FLOOR;
+                    tileType = Tile.TileType.GREENDOOR;
                 }
                 if (col == 5 && row == 20) {
-                    tileType = Tile.TileType.FLOOR;
+                    tileType = Tile.TileType.REDDOOR;
                 }
                 if (col == 15 && row == 10) {
                     tileType = Tile.TileType.FLOOR;
@@ -106,7 +106,282 @@ public class GameBoard {
                 if (col == 6 && row == 5) {
                     tileType = Tile.TileType.GATE;
                 }
-
+                //Some Actual Board Layout!  The Fun Stuff...
+                if (col == 9 && row == 1) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 9 && row == 2) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 9 && row == 3) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 9 && row == 4) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 9 && row == 5) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 9 && row == 6) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 9 && row == 7) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 9 && row == 8) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 9 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 1 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 2 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 3 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 4 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 5 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 6 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 7 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 8 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 2 && row == 7) {
+                    tileType = Tile.TileType.REDKEY;
+                }
+                if (col == 2 && row == 28) {
+                    tileType = Tile.TileType.YELLOWKEY;
+                }
+                if (col == 15 && row == 2) {
+                    tileType = Tile.TileType.BLUEKEY;
+                }
+                if (col == 28 && row == 28) {
+                    tileType = Tile.TileType.GREENKEY;
+                }
+                if (col == 18 && row == 28) {
+                    tileType = Tile.TileType.FIREBOOT;
+                }
+                if (col == 28 && row == 2) {
+                    tileType = Tile.TileType.WATERBOOT;
+                }
+                if (col == 28 && row == 15) {
+                    tileType = Tile.TileType.ICEBOOT;
+                }
+                if (col == 1 && row == 11) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 2 && row == 11) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 3 && row == 11) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 4 && row == 11) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 5 && row == 11) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 6 && row == 11) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 7 && row == 11) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 8 && row == 11) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 9 && row == 11) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 21 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 22 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 23 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 24 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 25 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 26 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 27 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 28 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 29 && row == 9) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 21 && row == 21) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 22 && row == 21) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 23 && row == 21) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 24 && row == 21) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 25 && row == 21) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 26 && row == 21) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 27 && row == 21) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 28 && row == 21) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 29 && row == 21) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 21 && row == 22) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 21 && row == 23) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 21 && row == 24) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 21 && row == 25) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 21 && row == 26) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 21 && row == 27) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 21 && row == 28) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 21 && row == 29) {
+                    tileType = Tile.TileType.WATER;
+                }
+                if (col == 9 && row == 12) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 9 && row == 13) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 9 && row == 14) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 9 && row == 15) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 9 && row == 16) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 9 && row == 17) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 9 && row == 18) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 9 && row == 19) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 21 && row == 11) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 21 && row == 12) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 21 && row == 13) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 21 && row == 14) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 21 && row == 15) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 21 && row == 16) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 21 && row == 17) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 21 && row == 18) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 21 && row == 19) {
+                    tileType = Tile.TileType.FIRE;
+                }
+                if (col == 13 && row == 7) {
+                    tileType = Tile.TileType.BLOCK;
+                }
+                if (col == 14 && row == 7) {
+                    tileType = Tile.TileType.BLOCK;
+                }
+                if (col == 15 && row == 7) {
+                    tileType = Tile.TileType.BLOCK;
+                }
+                if (col == 16 && row == 7) {
+                    tileType = Tile.TileType.BLOCK;
+                }
+                if (col == 17 && row == 7) {
+                    tileType = Tile.TileType.BLOCK;
+                }
+                if (col == 13 && row == 8) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 14 && row == 8) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 15 && row == 8) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 16 && row == 8) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 17 && row == 8) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 13 && row == 9) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 14 && row == 9) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 15 && row == 9) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 16 && row == 9) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 17 && row == 9) {
+                    tileType = Tile.TileType.ICE;
+                }
+                
+                
                 Tile tile = new Tile(tileType, TILE_SIZE);
                 tiles[row][col] = tile;
                 gc.drawImage(tile.getImage(), col * TILE_SIZE, row * TILE_SIZE);
