@@ -20,8 +20,8 @@ public class Tile {
 
     public Tile(TileType type, int tileSize) {
         this.type = type;
-        this.image = getImageForType(type);  //So Image Can Be Drawn On Canvas
-        this.imageView = new ImageView(image);  //So Image Can Also Be Used As Node
+        this.image = getImageForType(type);
+        this.imageView = new ImageView(image);
         this.imageView.setFitWidth(tileSize);
         this.imageView.setFitHeight(tileSize);
         this.boundary = new Rectangle2D(0, 0, tileSize, tileSize);

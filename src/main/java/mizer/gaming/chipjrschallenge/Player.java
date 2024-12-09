@@ -32,7 +32,7 @@ public class Player {
 //    private boolean isSwim;
 //    private boolean isSlide;
     //Constructor for Chip Jr
-    public Player(Tile[][] tiles, int startX, int startY, int tileSize) {
+    public Player(Tile[][] tiles, int startY, int startX, int tileSize) {
 
         this.timeManager = new TimeManager();
         this.tiles = tiles;
@@ -52,7 +52,6 @@ public class Player {
 
 //        this.isSkid = false;
 //        this.isSwim = false;
-//        this.isSlide = false;
     }
 
     public void move(int dx, int dy, GameBoard gameBoard, InfoBox infoBox, Player player) {
@@ -119,7 +118,7 @@ public class Player {
         return currentImage;
     }
 
-    public boolean detectCollision(int newX, int newY) {
+    public boolean detectCollision(int newY, int newX) {
         return tiles[newY][newX].getType() == Tile.TileType.BLOCK;
     }
 
@@ -157,7 +156,7 @@ public class Player {
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }
-    
+
     public void playDittySound() {
         String soundFile = "DITTY1.WAV";
         Media sound = new Media(new File(soundFile).toURI().toString());
@@ -168,8 +167,6 @@ public class Player {
     public Tile getCurrentTile() {
         return tiles[y][x];
     }
-    
-    
 
     public void collectKey(int keyIndex, InfoBox infoBox, Player player) {
         if (keyIndex >= 0 && keyIndex < keys.length) {
@@ -239,9 +236,9 @@ public class Player {
                 } else if (dx > 0) {
                     currentImage = rightImage;
                 } else if (dy < 0) {
-                    currentImage = downImage;
-                } else if (dy > 0) {
                     currentImage = upImage;
+                } else if (dy > 0) {
+                    currentImage = downImage;
                 }
                 continue;
             }
@@ -278,10 +275,5 @@ public class Player {
         this.currentImage = newImage;
     }
 //    private void swim(){
-//        
-//    }
-//    
 //    private void skid(){
-//        
-//    }
 }

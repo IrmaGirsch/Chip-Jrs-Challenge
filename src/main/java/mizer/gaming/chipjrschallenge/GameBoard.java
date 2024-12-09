@@ -528,7 +528,6 @@ public class GameBoard {
             alert.setHeaderText(null);
             alert.setContentText("You Won!");
 
-            // Show the alert
             alert.showAndWait();
         } else {
             infoBox.resetInfoDisplay();
