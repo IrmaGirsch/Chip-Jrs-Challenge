@@ -8,10 +8,9 @@ import javafx.scene.image.ImageView;
 public class Tile {
 
     public enum TileType {
-        FLOOR, BLOCK, CHIP, BLOCKSWITCHON, BLOCKSWITCHOFF, SECRET, DIRT, MUD, GRAVEL, INFO, GOAL,
-        FIRE, ICE, SKID, WATER, FIREDEATH, WATERDEATH, FIREBOOT, ICEBOOT, SKIDBOOT, WATERBOOT, ICEWALLBL, ICEWALLBR, ICEWALLTL, ICEWALLTR, SKIDDOWN, SKIDLEFT,
-        SKIDRIGHT, SKIDUP, SKIDDEATH, WALLDOWN, WALLLEFT, WALLRIGHT, WALLUP, BLUEKEY,
-        GREENKEY, REDKEY, YELLOWKEY, BLUEDOOR, GREENDOOR, REDDOOR, YELLOWDOOR
+        FLOOR, BLOCK, CHIP, SECRET, DIRT, MUD, GRAVEL, INFO, GOAL, GATE,
+        FIRE, ICE, SKID, WATER, FIREDEATH, WATERDEATH, FIREBOOT, ICEBOOT, SKIDBOOT, WATERBOOT,
+        BLUEKEY,GREENKEY, REDKEY, YELLOWKEY, BLUEDOOR, GREENDOOR, REDDOOR, YELLOWDOOR
     }
 
     private TileType type;
@@ -38,6 +37,8 @@ public class Tile {
                 return new Image("Tile - Info.png");
             case GOAL:
                 return new Image("Tile - Goal.png");
+            case GATE:
+                return new Image("Gate.png");
             case FIRE:
                 return new Image("Tile - Fire.png");
             case ICE:
@@ -105,6 +106,8 @@ public class Tile {
                 return new Image("Tile - Info.png");
             case GOAL:
                 return new Image("Tile - Goal.png");
+            case GATE:
+                return new Image("Gate.png");
             case FIRE:
                 return new Image("Tile - Fire.png");
             case ICE:

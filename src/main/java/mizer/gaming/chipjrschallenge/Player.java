@@ -89,6 +89,9 @@ public class Player {
         } else if (tiles[nextY][nextX].getType() == Tile.TileType.YELLOWDOOR && !player.hasKey(3)) {
             playCollisionSound();
             return;
+        } else if (tiles[nextY][nextX].getType() == Tile.TileType.GATE && gameBoard.getChipsRemaining() > 0) {
+            playCollisionSound();
+            return;
         } else if (tiles[nextY][nextX].getType() == Tile.TileType.ICE && !hasBoot(1)) {
             slide(dx, dy, gameBoard, infoBox);
             return;
@@ -154,10 +157,19 @@ public class Player {
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
     }
+    
+    public void playDittySound() {
+        String soundFile = "DITTY1.WAV";
+        Media sound = new Media(new File(soundFile).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
+    }
 
     public Tile getCurrentTile() {
         return tiles[y][x];
     }
+    
+    
 
     public void collectKey(int keyIndex, InfoBox infoBox, Player player) {
         if (keyIndex >= 0 && keyIndex < keys.length) {

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 
 public class GameBoard {
@@ -83,84 +84,27 @@ public class GameBoard {
                 if (col == 15 && row == 20) {
                     tileType = Tile.TileType.FLOOR;
                 }
-
                 if (chipPositions.contains(new Point(col, row))) {
                     tileType = Tile.TileType.CHIP;
                     chipsRemaining++;
                 }
-
                 if (col == 15 && row == 14) {
                     tileType = Tile.TileType.INFO;
                 }
-
-                if (col == 16 && row == 13) {
-                    tileType = Tile.TileType.FIREBOOT;
-                }
-                if (col == 16 && row == 14) {
-                    tileType = Tile.TileType.WATERBOOT;
-                }
-                if (col == 16 && row == 15) {
-                    tileType = Tile.TileType.ICEBOOT;
-                }
-                if (col == 16 && row == 16) {
-                    tileType = Tile.TileType.SKIDBOOT;
-                }
-                if (col == 17 && row == 13) {
-                    tileType = Tile.TileType.BLUEKEY;
-                }
-                if (col == 17 && row == 14) {
-                    tileType = Tile.TileType.GREENKEY;
-                }
-                if (col == 17 && row == 15) {
-                    tileType = Tile.TileType.REDKEY;
-                }
-                if (col == 17 && row == 16) {
-                    tileType = Tile.TileType.YELLOWKEY;
-                }
-                if (col == 14 && row == 13) {
-                    tileType = Tile.TileType.BLUEDOOR;
-                }
-                if (col == 14 && row == 14) {
-                    tileType = Tile.TileType.GREENDOOR;
-                }
-                if (col == 14 && row == 15) {
-                    tileType = Tile.TileType.REDDOOR;
-                }
-                if (col == 14 && row == 16) {
-                    tileType = Tile.TileType.YELLOWDOOR;
-                }
-                if (col == 18 && row == 13) {
-                    tileType = Tile.TileType.FIRE;
-                }
-                if (col == 18 && row == 14) {
-                    tileType = Tile.TileType.SKID;
-                }
-                if (col == 18 && row == 15) {
-                    tileType = Tile.TileType.ICE;
-                }
-                if (col == 19 && row == 15) {
-                    tileType = Tile.TileType.ICE;
-                }
-                if (col == 20 && row == 15) {
-                    tileType = Tile.TileType.ICE;
-                }
-                if (col == 21 && row == 15) {
-                    tileType = Tile.TileType.ICE;
-                }
-                if (col == 22 && row == 15) {
-                    tileType = Tile.TileType.ICE;
-                }
-                if (col == 23 && row == 15) {
-                    tileType = Tile.TileType.ICE;
-                }
-                if (col == 24 && row == 15) {
-                    tileType = Tile.TileType.BLOCK;
-                }
-                if (col == 18 && row == 16) {
-                    tileType = Tile.TileType.WATER;
-                }
                 if (col == 5 && row == 5) {
                     tileType = Tile.TileType.GOAL;
+                }
+                if (col == 5 && row == 4) {
+                    tileType = Tile.TileType.GATE;
+                }
+                if (col == 5 && row == 6) {
+                    tileType = Tile.TileType.GATE;
+                }
+                if (col == 4 && row == 5) {
+                    tileType = Tile.TileType.GATE;
+                }
+                if (col == 6 && row == 5) {
+                    tileType = Tile.TileType.GATE;
                 }
 
                 Tile tile = new Tile(tileType, TILE_SIZE);
@@ -297,12 +241,20 @@ public class GameBoard {
         } else if (currentTile.getType() == Tile.TileType.FIRE && !player.hasBoot(0)) {
             player.hasFireDied();
             return;
-//        } else if (tiles[nextY][nextX].getType() == Tile.TileType.SKID && !player.hasBoot(3)) {
-////            playDeathSound();
-////            return;
+        } else if (currentTile.getType() == Tile.TileType.GATE && this.getChipsRemaining() <= 0) {
+            currentTile.setNewType(Tile.TileType.FLOOR);
         } else if (currentTile.getType() == Tile.TileType.WATER && !player.hasBoot(3)) {
             player.hasWaterDied();
             return;
+        } else if (currentTile.getType() == Tile.TileType.GOAL) {
+            player.playDittySound();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Congratulations");
+            alert.setHeaderText(null);
+            alert.setContentText("You Won!");
+
+            // Show the alert
+            alert.showAndWait();
         } else {
             infoBox.resetInfoDisplay();
 
