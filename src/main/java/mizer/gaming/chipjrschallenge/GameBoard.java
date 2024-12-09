@@ -133,10 +133,28 @@ public class GameBoard {
                     tileType = Tile.TileType.FIRE;
                 }
                 if (col == 18 && row == 14) {
-                    tileType = Tile.TileType.ICE;
+                    tileType = Tile.TileType.SKID;
                 }
                 if (col == 18 && row == 15) {
-                    tileType = Tile.TileType.SKID;
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 19 && row == 15) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 20 && row == 15) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 21 && row == 15) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 22 && row == 15) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 23 && row == 15) {
+                    tileType = Tile.TileType.ICE;
+                }
+                if (col == 24 && row == 15) {
+                    tileType = Tile.TileType.BLOCK;
                 }
                 if (col == 18 && row == 16) {
                     tileType = Tile.TileType.WATER;
@@ -279,12 +297,9 @@ public class GameBoard {
         } else if (currentTile.getType() == Tile.TileType.FIRE && !player.hasBoot(0)) {
             player.hasFireDied();
             return;
-//        } else if (tiles[nextY][nextX].getType() == Tile.TileType.ICE && !player.hasBoot(1)) {
-//            playDeathSound();
-//            return;
 //        } else if (tiles[nextY][nextX].getType() == Tile.TileType.SKID && !player.hasBoot(3)) {
-//            playDeathSound();
-//            return;
+////            playDeathSound();
+////            return;
         } else if (currentTile.getType() == Tile.TileType.WATER && !player.hasBoot(3)) {
             player.hasWaterDied();
             return;

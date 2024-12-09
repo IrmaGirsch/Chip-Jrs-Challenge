@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 
 public class Player {
 
+    TimeManager timeManager;
+
     private Tile[][] tiles;
     private boolean isAlive = true;
     //Location
@@ -29,9 +31,10 @@ public class Player {
 //    private boolean isSkid;
 //    private boolean isSwim;
 //    private boolean isSlide;
-
     //Constructor for Chip Jr
     public Player(Tile[][] tiles, int startX, int startY, int tileSize) {
+
+        this.timeManager = new TimeManager();
         this.tiles = tiles;
         this.x = startX;
         this.y = startY;
@@ -70,7 +73,7 @@ public class Player {
         int nextX = this.x + dx;
         int nextY = this.y + dy;
 
-        // Check For Collision With Block and Door Tiles
+        // Check For Collision With Block and Doors, and Handle Ice
         if (tiles[nextY][nextX].getType() == Tile.TileType.BLOCK) {
             playCollisionSound();
             return;
@@ -85,6 +88,9 @@ public class Player {
             return;
         } else if (tiles[nextY][nextX].getType() == Tile.TileType.YELLOWDOOR && !player.hasKey(3)) {
             playCollisionSound();
+            return;
+        } else if (tiles[nextY][nextX].getType() == Tile.TileType.ICE && !hasBoot(1)) {
+            slide(dx, dy, gameBoard, infoBox);
             return;
         }
 
@@ -195,6 +201,47 @@ public class Player {
         getCurrentTile().setNewType(Tile.TileType.WATERDEATH);
         removePlayerFromBoard();
         resetInventory();
+    }
+
+    public void slide(int dx, int dy, GameBoard gameBoard, InfoBox infoBox) {
+        int slideX = this.x;
+        int slideY = this.y;
+
+        while (true) {
+            slideX += dx;
+            slideY += dy;
+
+            Tile nextTile = tiles[slideY][slideX];
+
+            if (nextTile.getType() == Tile.TileType.BLOCK) {
+                slideX -= dx;
+                slideY -= dy;
+
+                // Reverse Direction
+                dx = -dx;
+                dy = -dy;
+
+                //Reverse Image
+                if (dx < 0) {
+                    currentImage = leftImage;
+                } else if (dx > 0) {
+                    currentImage = rightImage;
+                } else if (dy < 0) {
+                    currentImage = downImage;
+                } else if (dy > 0) {
+                    currentImage = upImage;
+                }
+                continue;
+            }
+
+            if (nextTile.getType() != Tile.TileType.ICE) {
+                break;
+            }
+        }
+
+        this.x = slideX;
+        this.y = slideY;
+        gameBoard.handlePlayerMove(this, infoBox);
     }
 
     public void removePlayerFromBoard() {
